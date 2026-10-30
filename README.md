@@ -32,7 +32,7 @@ missing space before a link is a warning.
 - `src/data/site.ts`: brand name, URL, contact email, and `draftPages` (noindex + draft banner + excluded from sitemap).
 - `src/data/products.ts`: product cards. Add only verified products and features.
 - `src/styles/global.css`: design tokens (colours, font, radius).
-- `src/content/panduan/`: guides. Copy `_TEMPLATE.md` to add one; the Panduan nav item, homepage section, `/panduan/` index and sitemap entries appear automatically once a non-draft guide exists. After adding the very first guide, restart `npm run dev` (the empty-folder check runs once at startup).
+- `src/content/panduan/`: guides. Copy `_TEMPLATE.md` to add one; the Panduan nav item, homepage section, `/panduan/` index and sitemap entries appear automatically once a non-draft guide exists. After adding the very first guide, restart `npm run dev` (the empty-folder check runs once at startup). Set `updatedAt` when you revise a guide: the sitemap `lastmod` uses it, falling back to `publishedAt`.
 - `public/_headers`: security headers, asset caching, noindex for `*.pages.dev` (a backup: `kukirim-web.pages.dev`
   redirects to kukirim.com, so it only applies to per-deployment `<hash>.kukirim-web.pages.dev` URLs).
 
