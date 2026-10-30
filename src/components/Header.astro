@@ -1,0 +1,77 @@
+---
+import Logo from './Logo.astro';
+import { getPublishedGuides } from '../lib/guides';
+
+const hasGuides = (await getPublishedGuides()).length > 0;
+const path = Astro.url.pathname;
+
+const links = [
+  { href: '/#produk', label: 'Produk' },
+  ...(hasGuides ? [{ href: '/panduan/', label: 'Panduan' }] : []),
+  { href: '/tentang/', label: 'Tentang' },
+];
+---
+
+<header class="site-header">
+  <div class="container inner">
+    <a href="/" class="home" aria-label="Kukirim — beranda">
+      <Logo />
+    </a>
+    <nav aria-label="Navigasi utama">
+      <ul>
+        {
+          links.map(({ href, label }) => (
+            <li>
+              <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    min-height: 4rem;
+    padding-block: 0.5rem;
+  }
+
+  .home {
+    text-decoration: none;
+  }
+
+  ul {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  nav a:hover,
+  nav a[aria-current='page'] {
+    background: var(--color-surface);
+    color: var(--color-accent);
+  }
+</style>

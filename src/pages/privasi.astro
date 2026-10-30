@@ -1,0 +1,97 @@
+---
+// INTERNAL: plain-language draft, not legal advice. Structure and wording follow the reviewed policy on
+// tools.kukirim.com. Approved by the owner 2026-10-29; re-review whenever data handling changes.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { products } from '../data/products';
+---
+
+<BaseLayout
+  title="Kebijakan Privasi"
+  description="Bagaimana kukirim.com menangani data: tanpa akun, tanpa formulir, dan tanpa cookie iklan. Data teknis hanya diproses penyedia hosting."
+>
+  <article class="container prose">
+    <h1>Kebijakan Privasi</h1>
+    <p class="meta">Terakhir diperbarui: 26 Oktober 2026</p>
+
+    <p>
+      Kebijakan ini menjelaskan data apa yang diproses saat Anda mengunjungi kukirim.com dan bagaimana data tersebut
+      ditangani. Ringkasnya: situs ini tidak memiliki akun, formulir, atau fitur unggah file, dan tidak memasang cookie
+      iklan atau pelacak.
+    </p>
+
+    <h2>Pengelola situs</h2>
+    <p>
+      kukirim.com dikelola oleh Kukirim Digital, yang dapat dihubungi melalui email{' '}
+      <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+
+    <h2>Data yang kami proses</h2>
+    <ul>
+      <li>
+        <strong>Saat Anda membaca situs ini:</strong> kukirim.com berisi informasi tentang Kukirim dan produknya. Tidak
+        ada data yang perlu Anda masukkan, dan kami tidak menyimpan data apa pun tentang kunjungan Anda.
+      </li>
+      <li>
+        <strong>Saat Anda mengirim email kepada kami:</strong> kami menggunakan alamat email dan isi pesan Anda hanya untuk
+        menanggapi pesan tersebut.
+      </li>
+      <li>
+        <strong>Produk Kukirim lain:</strong>{' '}
+        {
+          products.map((product) => (
+            <>
+              <a href={product.url}>{product.name}</a> memiliki kebijakan privasinya sendiri di{' '}
+              <a href={new URL('privasi/', product.url).href}>{new URL('privasi/', product.url).href}</a>.
+            </>
+          ))
+        }
+      </li>
+    </ul>
+
+    <h2>Data teknis yang diproses penyedia hosting</h2>
+    <p>
+      Situs ini di-host oleh Cloudflare, Inc. melalui layanan Cloudflare Pages. Seperti situs web pada umumnya, saat Anda
+      membuka halaman, Cloudflare memproses data teknis seperti alamat IP, jenis browser, halaman yang diminta, dan waktu
+      akses untuk mengirimkan halaman dan menjaga keamanan layanan.
+    </p>
+    <p>
+      Cloudflare mengoperasikan jaringan server di banyak negara, sehingga data teknis tersebut dapat diproses di luar
+      Indonesia. Cara Cloudflare menangani data dijelaskan dalam{' '}
+      <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">kebijakan privasi Cloudflare</a>.
+    </p>
+
+    <h2>Analitik, iklan, dan cookie</h2>
+    <p>
+      Saat ini kami tidak menggunakan layanan analitik, iklan, atau pelacak pihak ketiga. Kode situs ini tidak memasang
+      cookie. Penyedia hosting dapat menggunakan cookie atau teknologi serupa untuk keamanan dan pengiriman layanan. Jika
+      kami menambahkan analitik di kemudian hari, kami akan memilih layanan yang menghormati privasi dan memperbarui
+      kebijakan ini sebelum mulai menggunakannya.
+    </p>
+
+    <h2>Hak Anda atas data pribadi</h2>
+    <p>
+      Jika Anda memiliki pertanyaan atau permintaan terkait data pribadi Anda, termasuk data teknis yang diproses penyedia
+      hosting, hubungi kami di <a href={`mailto:${site.email}`}>{site.email}</a>. Kami akan menanggapinya sesuai ketentuan
+      peraturan perundang-undangan yang berlaku.
+    </p>
+
+    <h2>Tautan ke situs lain</h2>
+    <p>
+      Halaman kami berisi tautan ke produk Kukirim dan situs lain. Kebijakan privasi situs tersebut berlaku saat Anda
+      mengunjunginya.
+    </p>
+
+    <h2>Perubahan kebijakan</h2>
+    <p>
+      Kebijakan ini dapat diperbarui jika layanan berubah, misalnya saat menambahkan analitik, iklan, atau produk baru.
+      Tanggal pembaruan terakhir tercantum di bagian atas halaman ini.
+    </p>
+
+    <h2>Pertanyaan</h2>
+    <p>
+      Untuk pertanyaan tentang privasi, kirim email ke <a href={`mailto:${site.email}`}>{site.email}</a> atau lihat
+      halaman <a href="/kontak/">Kontak</a>.
+    </p>
+  </article>
+</BaseLayout>

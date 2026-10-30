@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Kontak"
+  description="Hubungi Kukirim lewat email untuk pertanyaan, masukan, atau laporan kesalahan seputar produk dan tools Kukirim."
+>
+  <article class="container prose">
+    <h1>Kontak</h1>
+    <p>
+      Untuk pertanyaan, masukan, atau laporan kesalahan, kirim email ke{' '}
+      <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+
+    <h2>Agar kami bisa membantu lebih cepat</h2>
+    <ul>
+      <li>Sebutkan produk atau tool yang Anda maksud, misalnya Kalkulator Keuntungan.</li>
+      <li>Jelaskan apa yang Anda lakukan, apa yang Anda harapkan, dan apa yang terjadi.</li>
+      <li>Sertakan jenis perangkat dan browser yang Anda gunakan bila melaporkan kesalahan.</li>
+    </ul>
+    <p>
+      Mohon jangan mengirim kata sandi, data rekening, atau data pribadi pelanggan Anda melalui email.
+    </p>
+  </article>
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+// INTERNAL: plain-language draft, not legal advice. Structure and wording follow the reviewed terms on
+// tools.kukirim.com. Approved by the owner 2026-10-29; re-review whenever data handling changes.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { products } from '../data/products';
+---
+
+<BaseLayout
+  title="Syarat dan Ketentuan"
+  description="Syarat penggunaan kukirim.com: situs informasi tentang Kukirim dan produknya, penggunaan konten, tautan ke produk lain, dan perubahan syarat."
+>
+  <article class="container prose">
+    <h1>Syarat dan Ketentuan</h1>
+    <p class="meta">Terakhir diperbarui: 26 Oktober 2026</p>
+
+    <p>Dengan menggunakan kukirim.com, Anda menyetujui syarat berikut. Situs ini dikelola oleh Kukirim Digital.</p>
+
+    <h2>1. Layanan</h2>
+    <p>
+      kukirim.com menyediakan informasi tentang Kukirim dan produknya secara gratis, tanpa akun. Kami dapat mengubah,
+      menambah, atau menghapus konten kapan saja.
+    </p>
+
+    <h2>2. Produk Kukirim lain</h2>
+    <p>
+      Produk yang ditautkan dari situs ini memiliki syarat dan ketentuannya sendiri, yang berlaku saat Anda
+      menggunakannya:
+    </p>
+    <ul>
+      {
+        products.map((product) => (
+          <li>
+            <a href={new URL('syarat-ketentuan/', product.url).href}>Syarat dan Ketentuan {product.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2>3. Konten dan merek</h2>
+    <p>
+      Nama, logo, dan konten di situs ini milik Kukirim kecuali dinyatakan lain. Anda boleh membagikan tautan ke halaman
+      kami, tetapi tidak boleh menyalin konten secara utuh untuk dipublikasikan ulang tanpa izin.
+    </p>
+
+    <h2>4. Penggunaan yang wajar</h2>
+    <p>
+      Jangan menggunakan situs ini untuk tujuan yang melanggar hukum, atau dengan cara yang mengganggu atau membebani
+      layanan.
+    </p>
+
+    <h2>5. Tanpa jaminan</h2>
+    <p>
+      Situs ini disediakan "sebagaimana adanya". Kami berusaha agar informasi di dalamnya akurat, tetapi tidak menjamin
+      bebas dari kesalahan atau selalu tersedia. Sejauh diizinkan oleh hukum yang berlaku, kami tidak bertanggung jawab
+      atas kerugian yang timbul dari penggunaan situs ini.
+    </p>
+
+    <h2>6. Tautan ke situs lain</h2>
+    <p>
+      Situs ini dapat menautkan ke situs pihak ketiga. Penggunaan situs tersebut tunduk pada syarat dan ketentuannya
+      masing-masing.
+    </p>
+
+    <h2>7. Perubahan syarat</h2>
+    <p>
+      Syarat ini dapat diperbarui sewaktu-waktu. Tanggal pembaruan terakhir tercantum di bagian atas halaman ini.
+      Pertanyaan dapat disampaikan melalui halaman <a href="/kontak/">Kontak</a>.
+    </p>
+  </article>
+</BaseLayout>

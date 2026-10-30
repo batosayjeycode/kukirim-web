@@ -1,0 +1,225 @@
+/* Design tokens — shared palette with tools.kukirim.com. Adjust brand colours here. */
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f5f7f6;
+  --color-text: #1b2420;
+  --color-muted: #55615b;
+  --color-border: #d6ddd9;
+  --color-accent: #0b6e4f;
+  --color-accent-hover: #08573e;
+  --color-on-accent: #ffffff;
+  --color-accent-soft: #e3f1ec;
+  --color-focus: #1f6feb;
+  --color-warning-bg: #fff4d6;
+  --color-warning-text: #5c4300;
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --max-width: 64rem;
+  --gutter: 1rem;
+  --radius: 8px;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f1513;
+    --color-surface: #18201d;
+    --color-text: #e6ece9;
+    --color-muted: #a3b0aa;
+    --color-border: #2c3833;
+    --color-accent: #5fd3a6;
+    --color-accent-hover: #86e0bd;
+    --color-on-accent: #06291c;
+    --color-accent-soft: #163a2e;
+    --color-focus: #79a8ff;
+    --color-warning-bg: #3a2f0b;
+    --color-warning-text: #f5dc94;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -3rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-radius: var(--radius);
+  z-index: 10;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.625rem 1.25rem;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.button-primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.button-primary:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-on-accent);
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--color-accent);
+}
+
+.section {
+  padding-block: 3rem;
+}
+
+.section-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.section-lead {
+  margin: 0 0 1.5rem;
+  color: var(--color-muted);
+  max-width: 40rem;
+}
+
+/* Long-form pages (Tentang, Privasi, Syarat, Panduan). */
+.prose {
+  max-width: 42rem;
+  padding-block: 2.5rem 3.5rem;
+}
+
+.prose h1 {
+  font-size: 2rem;
+  margin: 0 0 1rem;
+}
+
+.prose h2 {
+  font-size: 1.25rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+}
+
+.prose table {
+  width: 100%;
+  margin-block: 1rem 1.5rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.prose th,
+.prose td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  background: var(--color-surface);
+}
+
+/* Right-aligned columns hold amounts; keep "−Rp 40.000" on one line. */
+.prose th[style*='right'],
+.prose td[style*='right'] {
+  white-space: nowrap;
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--color-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--color-surface);
+}
+
+.prose blockquote p {
+  margin: 0;
+}
+
+.prose .meta {
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+.placeholder {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  padding: 0 0.25em;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

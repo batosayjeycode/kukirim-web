@@ -1,0 +1,28 @@
+{
+  "name": "kukirim-web",
+  "private": true,
+  "type": "module",
+  "description": "Kukirim — homepage dan katalog produk (kukirim.com)",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:seo": "node scripts/check-seo.mjs",
+    "check:launch": "node --experimental-strip-types --no-warnings scripts/check-launch.mjs",
+    "check:live": "node --experimental-strip-types --no-warnings scripts/check-live.mjs",
+    "images": "node scripts/generate-images.mjs",
+    "verify": "npm run check && npm run build && npm run check:seo"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  }
+}

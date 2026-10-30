@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { products } from '../data/products';
+import { getPublishedGuides, formatDate } from '../lib/guides';
+
+const guides = (await getPublishedGuides()).slice(0, 3);
+const [primary] = products;
+
+const jsonLd = [
+  {
+    '@type': 'Organization',
+    '@id': `${site.url}/#organization`,
+    name: site.name,
+    url: `${site.url}/`,
+    logo: `${site.url}/logo.png`,
+    email: site.email,
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${site.url}/#website`,
+    name: site.name,
+    url: `${site.url}/`,
+    inLanguage: 'id-ID',
+    publisher: { '@id': `${site.url}/#organization` },
+  },
+];
+
+const principles = [
+  {
+    title: 'Tanpa daftar akun',
+    text: 'Kukirim Tools bisa langsung dipakai tanpa membuat akun atau memasang aplikasi.',
+  },
+  {
+    title: 'Data tetap di perangkat Anda',
+    text: 'Kalkulator dan generator label memproses data di browser Anda. Angka dan data pelanggan tidak diunggah ke server kami.',
+  },
+  {
+    title: 'Mudah dihubungi',
+    text: 'Punya pertanyaan, masukan, atau menemukan kesalahan? Kirim email kepada kami.',
+  },
+];
+---
+
+<BaseLayout title={`${site.name} — ${site.tagline}`} description={site.description} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="container">
+      <h1>{site.tagline}</h1>
+      <p class="lead">
+        Kukirim menghadirkan tools online yang praktis untuk membantu Anda menyelesaikan kebutuhan
+        digital sehari-hari, dimulai dari tools gratis untuk seller online Indonesia.
+      </p>
+      <div class="actions">
+        <a class="button button-primary" href={primary.url}>Jelajahi Tools Gratis</a>
+        <a class="button button-secondary" href="/tentang/">Pelajari Kukirim</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="produk" class="section" aria-labelledby="produk-title">
+    <div class="container">
+      <h2 id="produk-title" class="section-title">Produk Kukirim</h2>
+      <p class="section-lead">Produk yang sudah tersedia dan bisa Anda gunakan hari ini.</p>
+
+      {
+        products.map((product) => (
+          <article class="product" aria-labelledby={`produk-${product.id}`}>
+            <div class="product-head">
+              <h3 id={`produk-${product.id}`}>{product.name}</h3>
+              <span class="badge">Tersedia</span>
+            </div>
+            <p>{product.summary}</p>
+            <ul class="tool-list">
+              {product.items.map((item) => (
+                <li>
+                  <a href={item.url}>{item.name}</a>
+                  <p>{item.summary}</p>
+                </li>
+              ))}
+            </ul>
+            <a class="button button-primary" href={product.url}>
+              Buka {product.name}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    guides.length > 0 && (
+      <section class="section" aria-labelledby="panduan-title">
+        <div class="container">
+          <h2 id="panduan-title" class="section-title">Panduan pilihan</h2>
+          <ul class="guide-list">
+            {guides.map((guide) => (
+              <li>
+                <a href={`/panduan/${guide.id}/`}>{guide.data.title}</a>
+                <p>{guide.data.description}</p>
+                <time datetime={guide.data.publishedAt.toISOString()}>
+                  {formatDate(guide.data.publishedAt)}
+                </time>
+              </li>
+            ))}
+          </ul>
+          <a href="/panduan/">Lihat semua panduan</a>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section trust" aria-labelledby="prinsip-title">
+    <div class="container">
+      <h2 id="prinsip-title" class="section-title">Prinsip kami</h2>
+      <ul class="principles">
+        {
+          principles.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="trust-links">
+        Baca <a href="/privasi/">Kebijakan Privasi</a> atau hubungi kami di{' '}
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: 3.5rem 3rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 6vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+
+  .lead {
+    margin: 0 0 1.75rem;
+    max-width: 38rem;
+    font-size: 1.125rem;
+    color: var(--color-muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .product {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--radius) * 1.5);
+  }
+
+  .product-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .product h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .badge {
+    padding: 0.125rem 0.625rem;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .tool-list,
+  .guide-list,
+  .principles {
+    display: grid;
+    gap: 1rem;
+    margin: 1.25rem 0 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .tool-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .principles {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .tool-list li,
+  .guide-list li {
+    padding: 1rem;
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .tool-list a,
+  .guide-list a {
+    font-weight: 600;
+  }
+
+  .tool-list p,
+  .guide-list p {
+    margin: 0.25rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.9375rem;
+  }
+
+  .guide-list time {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  .trust {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .principles h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.0625rem;
+  }
+
+  .principles p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  .trust-links {
+    margin: 0;
+  }
+</style>

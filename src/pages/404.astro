@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { products } from '../data/products';
+
+const [primary] = products;
+---
+
+<BaseLayout
+  title="Halaman tidak ditemukan"
+  description="Halaman yang Anda cari tidak ditemukan di kukirim.com."
+  noindex
+>
+  <div class="container prose">
+    <h1>Halaman tidak ditemukan</h1>
+    <p>Halaman yang Anda cari mungkin sudah dipindahkan atau alamatnya salah ketik.</p>
+    <ul>
+      <li><a href="/">Kembali ke beranda Kukirim</a></li>
+      <li><a href={primary.url}>Buka {primary.name}</a></li>
+    </ul>
+  </div>
+</BaseLayout>

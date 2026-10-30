@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { products } from '../data/products';
+---
+
+<BaseLayout
+  title="Tentang Kukirim"
+  description="Kenali Kukirim: brand produk digital Indonesia yang menghadirkan tools online praktis, dimulai dari tools gratis untuk seller online."
+>
+  <article class="container prose">
+    <h1>Tentang Kukirim</h1>
+    <p>
+      Kukirim adalah brand produk digital Indonesia. Kami membuat tools online yang praktis untuk
+      membantu pengguna menyelesaikan kebutuhan digital sehari-hari, dimulai dari kebutuhan seller
+      online.
+    </p>
+
+    <h2>Produk kami saat ini</h2>
+    <ul>
+      {
+        products.map((product) => (
+          <li>
+            <a href={product.url}>{product.name}</a> — {product.summary}
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2>Prinsip yang kami pegang</h2>
+    <ul>
+      <li>Fungsi utama tools tetap gratis dan bisa dipakai tanpa membuat akun.</li>
+      <li>
+        Bila data bisa diproses di browser, kami memprosesnya di browser dan tidak mengunggahnya ke
+        server kami.
+      </li>
+      <li>Setiap tool menjelaskan asumsi dan cara kerjanya agar hasilnya mudah dipahami.</li>
+      <li>Kami hanya menampilkan produk dan fitur yang benar-benar tersedia.</li>
+    </ul>
+
+    <h2>Siapa di balik Kukirim</h2>
+    <p>
+      Kukirim dikelola oleh Kukirim Digital.
+    </p>
+
+    <h2>Hubungi kami</h2>
+    <p>
+      Pertanyaan, masukan, atau laporan kesalahan dapat dikirim ke{' '}
+      <a href={`mailto:${site.email}`}>{site.email}</a>. Lihat juga halaman{' '}
+      <a href="/kontak/">Kontak</a>.
+    </p>
+  </article>
+</BaseLayout>

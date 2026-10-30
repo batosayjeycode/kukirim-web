@@ -1,0 +1,64 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedGuides, formatDate } from '../../lib/guides';
+
+export async function getStaticPaths() {
+  const guides = await getPublishedGuides();
+  // No routes (not even /panduan/) are built until at least one guide is published.
+  if (guides.length === 0) return [];
+  return [
+    { params: { slug: undefined }, props: { guides } },
+    ...guides.map((guide) => ({ params: { slug: guide.id }, props: { guide } })),
+  ];
+}
+
+type Props =
+  | { guides: CollectionEntry<'panduan'>[]; guide?: undefined }
+  | { guide: CollectionEntry<'panduan'>; guides?: undefined };
+
+const { guide, guides } = Astro.props;
+const Content = guide ? (await render(guide)).Content : null;
+---
+
+{
+  guide && Content ? (
+    <BaseLayout title={guide.data.title} description={guide.data.description}>
+      <article class="container prose">
+        <p class="meta">
+          <a href="/panduan/">Panduan</a>
+        </p>
+        <h1>{guide.data.title}</h1>
+        <p class="meta">
+          Diterbitkan{' '}
+          <time datetime={guide.data.publishedAt.toISOString()}>{formatDate(guide.data.publishedAt)}</time>
+          {guide.data.updatedAt && (
+            <>
+              {' · '}Diperbarui{' '}
+              <time datetime={guide.data.updatedAt.toISOString()}>{formatDate(guide.data.updatedAt)}</time>
+            </>
+          )}
+        </p>
+        <Content />
+      </article>
+    </BaseLayout>
+  ) : (
+    <BaseLayout
+      title="Panduan"
+      description="Panduan praktis dari Kukirim untuk membantu seller online Indonesia menyelesaikan pekerjaan sehari-hari."
+    >
+      <div class="container prose">
+        <h1>Panduan</h1>
+        <ul>
+          {guides?.map((item) => (
+            <li>
+              <a href={`/panduan/${item.id}/`}>{item.data.title}</a>
+              <br />
+              {item.data.description}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </BaseLayout>
+  )
+}
