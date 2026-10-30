@@ -33,7 +33,8 @@ missing space before a link is a warning.
 - `src/data/products.ts`: product cards. Add only verified products and features.
 - `src/styles/global.css`: design tokens (colours, font, radius).
 - `src/content/panduan/`: guides. Copy `_TEMPLATE.md` to add one; the Panduan nav item, homepage section, `/panduan/` index and sitemap entries appear automatically once a non-draft guide exists. After adding the very first guide, restart `npm run dev` (the empty-folder check runs once at startup).
-- `public/_headers`: security headers, asset caching, noindex for `*.pages.dev`.
+- `public/_headers`: security headers, asset caching, noindex for `*.pages.dev` (a backup: `kukirim-web.pages.dev`
+  redirects to kukirim.com, so it only applies to per-deployment `<hash>.kukirim-web.pages.dev` URLs).
 
 ## Trust pages and drafts
 
@@ -73,8 +74,10 @@ One-time setup, done by the owner (nothing here changes DNS, redirects or analyt
 2. Add repository secrets `CLOUDFLARE_API_TOKEN` (Pages edit permission) and `CLOUDFLARE_ACCOUNT_ID`.
 3. Add custom domain `kukirim.com` (canonical) and `www.kukirim.com` to the Pages project.
 4. Redirect `www.kukirim.com/*` to `https://kukirim.com/$1` (301) with a Redirect Rule / Bulk Redirect. `_redirects` cannot do host redirects.
-5. Web Analytics stays off: `/privasi/` states that no analytics are used. To enable it later, update the "Analitik, iklan, dan cookie" section first. The CSP in `_headers` already allows its beacon.
-6. In Search Console, add `https://kukirim.com/` and submit `https://kukirim.com/sitemap-index.xml`.
+5. Redirect `kukirim-web.pages.dev/` to `https://kukirim.com/` (301) with an account-level Bulk Redirect (subpath
+   matching, preserve path suffix and query string). Done 2026-10-31.
+6. Web Analytics stays off: `/privasi/` states that no analytics are used. To enable it later, update the "Analitik, iklan, dan cookie" section first. The CSP in `_headers` already allows its beacon.
+7. In Search Console, add `https://kukirim.com/` and submit `https://kukirim.com/sitemap-index.xml`.
 
 ## Launch checklist
 
@@ -93,7 +96,9 @@ Pending until deployed:
 
 - [ ] Direct Upload project `kukirim-web`, repository secrets, first push to `main` (deploy job green).
 - [ ] `npm run check:live` against the production URL (adds http→https and www→apex 301 checks).
-- [ ] `npm run check:live -- https://<project>.pages.dev` (checks `X-Robots-Tag: noindex`).
+- [x] `kukirim-web.pages.dev` returns a 301 to the same path on `https://kukirim.com/` for every path (2026-10-31).
+- [ ] `npm run check:live -- https://<hash>.kukirim-web.pages.dev` (a deployment URL, which is not redirected; checks
+  `X-Robots-Tag: noindex`).
 - [ ] Lighthouse (mobile) re-run on the production URL (the local run does not apply `_headers`).
 - [ ] Screen-reader pass (VoiceOver iOS/macOS or TalkBack): skip link, nav, headings, link names.
 - [ ] Rich Results Test for the Organization/WebSite JSON-LD on `/`.

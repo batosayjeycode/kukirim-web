@@ -1,6 +1,6 @@
 // Read-only post-deployment checks. Sends GET requests only; changes nothing.
 //   npm run check:live                          # https://kukirim.com
-//   npm run check:live -- https://<project>.pages.dev
+//   npm run check:live -- https://<hash>.kukirim-web.pages.dev   # deployment URL (the project host redirects)
 import { products } from '../src/data/products.ts';
 import { draftPages } from '../src/data/site.ts';
 
