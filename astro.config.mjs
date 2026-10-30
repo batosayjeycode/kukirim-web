@@ -7,6 +7,9 @@ export default defineConfig({
   site: site.url,
   trailingSlash: 'always',
   output: 'static',
+  // Inline the small stylesheet so it is not a render-blocking request
+  // (allowed by style-src 'unsafe-inline' in public/_headers).
+  build: { inlineStylesheets: 'always' },
   integrations: [
     sitemap({
       // Draft pages (noindex) and the 404 page stay out of the sitemap.
