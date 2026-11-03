@@ -1,7 +1,13 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { site } from '../../data/site';
+import { products } from '../../data/products';
 import { getPublishedGuides, formatDate } from '../../lib/guides';
+import { breadcrumbJsonLd, isoDate, organizationId, websiteId, type Crumb } from '../../lib/schema';
+
+const toolsUrl = products.find((product) => product.id === 'tools')?.url ?? 'https://tools.kukirim.com/';
 
 export async function getStaticPaths() {
   const guides = await getPublishedGuides();
@@ -19,15 +25,74 @@ type Props =
 
 const { guide, guides } = Astro.props;
 const Content = guide ? (await render(guide)).Content : null;
+
+const hub = {
+  title: 'Panduan Jualan Online & Operasional Toko',
+  description:
+    'Panduan praktis untuk seller online Indonesia: HPP, harga jual, margin, keuntungan, pembukuan, mengelola pesanan, dan label pengiriman paket.',
+};
+const hubCrumbs: Crumb[] = [
+  { name: 'Beranda', path: '/' },
+  { name: 'Panduan', path: '/panduan/' },
+];
+const crumbs: Crumb[] = guide ? [...hubCrumbs, { name: guide.data.title, path: `/panduan/${guide.id}/` }] : hubCrumbs;
+
+const publishedTime = guide ? isoDate(guide.data.publishedAt) : undefined;
+const modifiedTime = guide ? isoDate(guide.data.updatedAt ?? guide.data.publishedAt) : undefined;
+
+const jsonLd = guide
+  ? [
+      {
+        '@type': 'Article',
+        '@id': `${site.url}/panduan/${guide.id}/#article`,
+        headline: guide.data.title,
+        description: guide.data.description,
+        datePublished: publishedTime,
+        dateModified: modifiedTime,
+        inLanguage: 'id-ID',
+        image: `${site.url}/og-default.png`,
+        mainEntityOfPage: `${site.url}/panduan/${guide.id}/`,
+        author: { '@id': organizationId },
+        publisher: { '@id': organizationId },
+        isPartOf: { '@id': websiteId },
+      },
+      breadcrumbJsonLd(crumbs),
+    ]
+  : [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${site.url}/panduan/#page`,
+        name: hub.title,
+        description: hub.description,
+        url: `${site.url}/panduan/`,
+        inLanguage: 'id-ID',
+        isPartOf: { '@id': websiteId },
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: (guides ?? []).map((item, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: `${site.url}/panduan/${item.id}/`,
+            name: item.data.title,
+          })),
+        },
+      },
+      breadcrumbJsonLd(crumbs),
+    ];
 ---
 
 {
   guide && Content ? (
-    <BaseLayout title={guide.data.title} description={guide.data.description}>
+    <BaseLayout
+      title={guide.data.title}
+      description={guide.data.description}
+      jsonLd={jsonLd}
+      ogType="article"
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+    >
       <article class="container prose">
-        <p class="meta">
-          <a href="/panduan/">Panduan</a>
-        </p>
+        <Breadcrumb items={crumbs} />
         <h1>{guide.data.title}</h1>
         <p class="meta">
           Diterbitkan{' '}
@@ -43,18 +108,25 @@ const Content = guide ? (await render(guide)).Content : null;
       </article>
     </BaseLayout>
   ) : (
-    <BaseLayout
-      title="Panduan"
-      description="Panduan praktis dari Kukirim untuk membantu seller online Indonesia menyelesaikan pekerjaan sehari-hari."
-    >
+    <BaseLayout title={hub.title} description={hub.description} jsonLd={jsonLd}>
       <div class="container prose">
-        <h1>Panduan</h1>
-        <ul>
+        <Breadcrumb items={crumbs} />
+        <h1>{hub.title}</h1>
+        <p>
+          Kumpulan panduan langkah demi langkah untuk pekerjaan sehari-hari toko online: dari menghitung harga jual dan
+          mencatat keuangan, sampai mengelola pesanan dan mengirim paket. Setiap panduan memakai contoh angka yang jelas.
+        </p>
+        <p>
+          Ingin langsung praktik? Panduan ini berpasangan dengan tools dan template gratis di{' '}
+          <a href={toolsUrl}>Kukirim Tools</a>, yang bisa dipakai tanpa membuat akun.
+        </p>
+        <ul class="guides">
           {guides?.map((item) => (
             <li>
-              <a href={`/panduan/${item.id}/`}>{item.data.title}</a>
-              <br />
-              {item.data.description}
+              <h2>
+                <a href={`/panduan/${item.id}/`}>{item.data.title}</a>
+              </h2>
+              <p>{item.data.description}</p>
             </li>
           ))}
         </ul>
@@ -62,3 +134,25 @@ const Content = guide ? (await render(guide)).Content : null;
     </BaseLayout>
   )
 }
+
+<style>
+  .guides {
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .guides li + li {
+    margin-top: 1.25rem;
+  }
+
+  .guides h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.125rem;
+  }
+
+  .guides p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+</style>

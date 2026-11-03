@@ -12,6 +12,10 @@ interface Props {
   noindex?: boolean;
   image?: { src: string; alt: string };
   jsonLd?: Record<string, unknown>[];
+  /** Guides pass "article" with their dates (YYYY-MM-DD). */
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 const {
@@ -20,6 +24,9 @@ const {
   noindex = false,
   image = { src: '/og-default.png', alt: `${site.name} — ${site.tagline}` },
   jsonLd = [],
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
 } = Astro.props;
 
 const path = Astro.url.pathname;
@@ -29,7 +36,9 @@ const fullTitle = path === '/' ? title : `${title} | ${site.name}`;
 const canonicalUrl = new URL(path, site.url).href;
 const imageUrl = new URL(image.src, site.url).href;
 const structuredData =
-  jsonLd.length > 0 ? JSON.stringify({ '@context': 'https://schema.org', '@graph': jsonLd }) : null;
+  jsonLd.length > 0
+    ? JSON.stringify({ '@context': 'https://schema.org', '@graph': jsonLd }).replace(/</g, '\\u003c')
+    : null;
 ---
 
 <!doctype html>
@@ -46,7 +55,7 @@ const structuredData =
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content={site.themeColor} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content={site.locale} />
     <meta property="og:title" content={fullTitle} />
@@ -56,6 +65,8 @@ const structuredData =
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={image.alt} />
+    {ogType === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {ogType === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
     <meta name="twitter:card" content="summary_large_image" />
 
     {structuredData && <script is:inline type="application/ld+json" set:html={structuredData} />}

@@ -1,0 +1,44 @@
+---
+/**
+ * Visible breadcrumb trail. The last item is the current page.
+ * Pair it with breadcrumbJsonLd() (src/lib/schema.ts) in the page's jsonLd so both stay in sync.
+ */
+import type { Crumb } from '../lib/schema';
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    {
+      items.map((item, i) => (
+        <li>
+          {i < items.length - 1 ? <a href={item.path}>{item.name}</a> : <span aria-current="page">{item.name}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+    color: var(--color-muted);
+    font-size: 0.9375rem;
+  }
+
+  li + li::before {
+    content: '›';
+    margin-right: 0.25rem;
+    color: var(--color-muted);
+  }
+</style>

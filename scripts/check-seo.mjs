@@ -111,7 +111,9 @@ for (const file of distFiles.filter((f) => f.endsWith('.html'))) {
   if (placeholders && !noindex) err(`${placeholders} placeholder(s) on an indexable page`);
   else if (placeholders) warn(`${placeholders} placeholder(s) awaiting confirmation (noindex draft)`);
 
-  for (const json of all(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+  const jsonLdBlocks = all(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);
+  if (!noindex && jsonLdBlocks.length === 0) err('indexable page has no JSON-LD');
+  for (const json of jsonLdBlocks) {
     try {
       JSON.parse(json);
     } catch {
@@ -136,6 +138,11 @@ for (const file of distFiles.filter((f) => f.endsWith('.html'))) {
     else if (!/\.[a-z0-9]+$/i.test(href.split(/[?#]/)[0]) && !href.split(/[?#]/)[0].endsWith('/')) err(`link without trailing slash ${href}`);
     else if (!resolves(href)) err(`broken link ${href}`);
   }
+}
+
+// Every sitemap URL needs a lastmod (src/data/site.ts pageLastmods or guide frontmatter).
+for (const entry of all(sitemap, /<url>([\s\S]*?)<\/url>/g)) {
+  if (!/<lastmod>\d{4}-\d{2}-\d{2}/.test(entry)) errors.push(`sitemap: ${one(entry, /<loc>([^<]+)<\/loc>/)} has no lastmod`);
 }
 
 // Every sitemap URL must be a built, indexable page.

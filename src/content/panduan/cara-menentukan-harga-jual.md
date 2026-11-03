@@ -2,6 +2,7 @@
 title: "Cara Menentukan Harga Jual Online Shop agar Untung"
 description: "Langkah menentukan harga jual produk online shop dari HPP, biaya marketplace, harga impas, sampai target margin, lengkap dengan contoh perhitungan."
 publishedAt: 2026-10-29
+updatedAt: 2026-11-03
 ---
 
 Banyak seller menentukan harga dengan menambahkan persentase ke modal, misalnya "modal ditambah 50%". Cara ini cepat,
@@ -24,7 +25,8 @@ dari supplier, masukkan juga:
 - biaya label, hangtag, atau sablon per unit.
 
 Contoh: harga beli Rp 37.000 per unit, ditambah ongkir kulakan Rp 30.000 untuk 10 unit (Rp 3.000 per unit). HPP =
-**Rp 40.000**.
+**Rp 40.000**. Contoh untuk produksi sendiri, dropship, dan restock dengan harga berbeda ada di
+[Cara Menghitung HPP Produk Online Shop](/panduan/cara-menghitung-hpp-produk-online-shop/).
 
 ## 2. Daftar semua biaya penjualan
 
@@ -82,7 +84,8 @@ produk di contoh ini dijual dengan "modal + 50%" (Rp 60.000), hasilnya:
 - laba bersih: Rp 60.000 − Rp 40.000 − Rp 7.000 − Rp 2.000 = Rp 11.000;
 - margin: Rp 11.000 ÷ Rp 60.000 ≈ 18,3%.
 
-Markup 50% ternyata hanya menghasilkan margin bersih sekitar 18%.
+Markup 50% ternyata hanya menghasilkan margin bersih sekitar 18%. Rumus konversi dan tabel markup ke margin ada di
+[Perbedaan Margin dan Markup dalam Jualan Online](/panduan/perbedaan-margin-dan-markup/).
 
 ## 6. Cek ruang untuk diskon sebelum ikut promo
 

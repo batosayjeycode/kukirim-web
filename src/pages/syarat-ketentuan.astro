@@ -2,14 +2,23 @@
 // INTERNAL: plain-language draft, not legal advice. Structure and wording follow the reviewed terms on
 // tools.kukirim.com. Approved by the owner 2026-10-29; re-review whenever data handling changes.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { breadcrumbJsonLd, type Crumb } from '../lib/schema';
 import { products } from '../data/products';
+
+const crumbs: Crumb[] = [
+  { name: 'Beranda', path: '/' },
+  { name: 'Syarat dan Ketentuan', path: '/syarat-ketentuan/' },
+];
 ---
 
 <BaseLayout
   title="Syarat dan Ketentuan"
   description="Syarat penggunaan kukirim.com: situs informasi tentang Kukirim dan produknya, penggunaan konten, tautan ke produk lain, dan perubahan syarat."
+  jsonLd={[breadcrumbJsonLd(crumbs)]}
 >
   <article class="container prose">
+    <Breadcrumb items={crumbs} />
     <h1>Syarat dan Ketentuan</h1>
     <p class="meta">Terakhir diperbarui: 26 Oktober 2026</p>
 

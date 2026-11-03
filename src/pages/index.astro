@@ -3,26 +3,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
 import { products } from '../data/products';
 import { getPublishedGuides, formatDate } from '../lib/guides';
+import { organizationId, websiteId } from '../lib/schema';
 
-const guides = (await getPublishedGuides()).slice(0, 3);
+// Up to eight newest guides (currently all of them); every published guide is also linked from /panduan/.
+const guides = (await getPublishedGuides()).slice(0, 8);
 const [primary] = products;
 
 const jsonLd = [
   {
     '@type': 'Organization',
-    '@id': `${site.url}/#organization`,
+    '@id': organizationId,
     name: site.name,
+    alternateName: site.footerName,
+    description: site.description,
     url: `${site.url}/`,
     logo: `${site.url}/logo.png`,
     email: site.email,
+    areaServed: { '@type': 'Country', name: 'Indonesia' },
   },
   {
     '@type': 'WebSite',
-    '@id': `${site.url}/#website`,
+    '@id': websiteId,
     name: site.name,
     url: `${site.url}/`,
     inLanguage: 'id-ID',
-    publisher: { '@id': `${site.url}/#organization` },
+    publisher: { '@id': organizationId },
   },
 ];
 
@@ -42,10 +47,11 @@ const principles = [
 ];
 ---
 
-<BaseLayout title={`${site.name} — ${site.tagline}`} description={site.description} jsonLd={jsonLd}>
+<BaseLayout title={site.homeTitle} description={site.description} jsonLd={jsonLd}>
   <section class="hero">
     <div class="container">
-      <h1>{site.tagline}</h1>
+      <p class="eyebrow">{site.tagline}</p>
+      <h1>{site.homeHeading}</h1>
       <p class="lead">
         Kukirim menghadirkan tools online yang praktis untuk membantu Anda menyelesaikan kebutuhan
         digital sehari-hari, dimulai dari tools gratis untuk seller online Indonesia.
@@ -143,6 +149,12 @@ const principles = [
     letter-spacing: -0.02em;
   }
 
+  .eyebrow {
+    margin: 0 0 0.5rem;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
   .lead {
     margin: 0 0 1.75rem;
     max-width: 38rem;
@@ -194,7 +206,8 @@ const principles = [
   }
 
   @media (min-width: 40rem) {
-    .tool-list {
+    .tool-list,
+    .guide-list {
       grid-template-columns: repeat(2, 1fr);
     }
 

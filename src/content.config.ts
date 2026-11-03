@@ -7,7 +7,8 @@ const panduan = defineCollection({
   // Empty loader until the first guide exists, so the build doesn't warn about an empty folder.
   loader: hasGuideFiles ? glob({ base: GUIDES_DIR, pattern: GUIDES_PATTERN }) : () => [],
   schema: z.object({
-    title: z.string().max(70),
+    // 55 + " | Kukirim" (10) = 65, the title limit in scripts/check-seo.mjs.
+    title: z.string().max(55),
     description: z.string().min(70).max(160),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
