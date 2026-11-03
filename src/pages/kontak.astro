@@ -1,13 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { breadcrumbJsonLd, type Crumb } from '../lib/schema';
 import { site } from '../data/site';
+
+const crumbs: Crumb[] = [
+  { name: 'Beranda', path: '/' },
+  { name: 'Kontak', path: '/kontak/' },
+];
 ---
 
 <BaseLayout
-  title="Kontak"
+  title="Kontak, Pertanyaan & Masukan"
   description="Hubungi Kukirim lewat email untuk pertanyaan, masukan, atau laporan kesalahan seputar produk dan tools Kukirim."
+  jsonLd={[breadcrumbJsonLd(crumbs)]}
 >
   <article class="container prose">
+    <Breadcrumb items={crumbs} />
     <h1>Kontak</h1>
     <p>
       Untuk pertanyaan, masukan, atau laporan kesalahan, kirim email ke{' '}

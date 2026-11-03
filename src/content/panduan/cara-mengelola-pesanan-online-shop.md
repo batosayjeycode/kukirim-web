@@ -2,6 +2,7 @@
 title: "Cara Mengelola Pesanan Online Shop dari Banyak Channel"
 description: "Cara mencatat pesanan dari marketplace, WhatsApp, dan Instagram di satu tempat, memantau status bayar dan kirim, serta mencegah pesanan terlewat."
 publishedAt: 2026-10-31
+updatedAt: 2026-11-03
 ---
 
 Saat toko mulai ramai, pesanan datang dari mana-mana: notifikasi marketplace, chat WhatsApp, DM Instagram, sampai
@@ -14,7 +15,7 @@ harian agar tidak ada pesanan yang terlewat.
 ## 1. Kumpulkan semua pesanan di satu daftar
 
 Masalah utama berjualan di banyak channel bukan jumlah pesanannya, melainkan datanya yang tersebar. Buat satu daftar
-pesanan untuk semua channel, misalnya di spreadsheet, dan jadikan aturan: **pesanan baru dianggap ada hanya jika sudah
+pesanan untuk semua channel, yang sering disebut *rekap orderan*, misalnya di spreadsheet, dan jadikan aturan: **pesanan baru dianggap ada hanya jika sudah
 tercatat di daftar ini.**
 
 Pesanan marketplace biasanya sudah tercatat di pusat penjual masing-masing. Tetap salin ringkasannya ke daftar Anda agar

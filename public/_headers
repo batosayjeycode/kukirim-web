@@ -9,6 +9,9 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Keep *.pages.dev preview/production aliases out of search results.
+# Keep *.pages.dev aliases and deployment previews (<hash>/<branch>.kukirim-web.pages.dev) out of search results.
 https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex

@@ -1,14 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { breadcrumbJsonLd, type Crumb } from '../lib/schema';
 import { site } from '../data/site';
 import { products } from '../data/products';
+
+const crumbs: Crumb[] = [
+  { name: 'Beranda', path: '/' },
+  { name: 'Tentang', path: '/tentang/' },
+];
 ---
 
 <BaseLayout
-  title="Tentang Kukirim"
+  title="Tentang Kami & Produk Digital"
   description="Kenali Kukirim: brand produk digital Indonesia yang menghadirkan tools online praktis, dimulai dari tools gratis untuk seller online."
+  jsonLd={[breadcrumbJsonLd(crumbs)]}
 >
   <article class="container prose">
+    <Breadcrumb items={crumbs} />
     <h1>Tentang Kukirim</h1>
     <p>
       Kukirim adalah brand produk digital Indonesia. Kami membuat tools online yang praktis untuk

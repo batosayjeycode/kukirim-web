@@ -2,6 +2,7 @@
 title: "Cara Membuat dan Mencetak Label Pengiriman Paket"
 description: "Isi label paket yang lengkap, pilihan ukuran thermal 100×150 mm atau A4, cara cetak banyak label dari CSV, dan pengaturan printer agar ukurannya pas."
 publishedAt: 2026-10-31
+updatedAt: 2026-11-03
 ---
 
 Menulis alamat dengan tangan di setiap paket memang murah, tetapi lambat dan rawan salah baca. Satu angka nomor HP yang
@@ -120,5 +121,6 @@ disimpan. Hanya data pengirim yang bisa disimpan di browser, itu pun hanya jika 
 daftar akun.
 
 Untuk mencatat pesanan dari banyak channel sebelum mencetak label, gunakan
-[Template Manajemen Order](https://tools.kukirim.com/template-manajemen-order/). Agar ongkir dan kemasan tidak
+[Template Manajemen Order](https://tools.kukirim.com/template-manajemen-order/) dan ikuti
+[Cara Mengelola Pesanan Online Shop dari Banyak Channel](/panduan/cara-mengelola-pesanan-online-shop/). Agar ongkir dan kemasan tidak
 menggerus untung, baca juga [Cara Menentukan Harga Jual Online Shop agar Untung](/panduan/cara-menentukan-harga-jual/).

@@ -1,10 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import { site, draftPages } from './src/data/site.ts';
+import { site, draftPages, pageLastmods } from './src/data/site.ts';
 import { guideLastmods } from './src/lib/guide-files.ts';
 
-const lastmods = guideLastmods();
+const lastmods = new Map([...Object.entries(pageLastmods), ...guideLastmods()]);
 
 export default defineConfig({
   site: site.url,
@@ -20,7 +20,7 @@ export default defineConfig({
         const path = new URL(page).pathname;
         return !draftPages.includes(path) && !path.startsWith('/404');
       },
-      // Guides get lastmod from their frontmatter; other pages have no reliable date, so they get none.
+      // Guides get lastmod from their frontmatter, other pages from pageLastmods in src/data/site.ts.
       serialize: (item) => {
         const lastmod = lastmods.get(new URL(item.url).pathname);
         return lastmod ? { ...item, lastmod } : item;

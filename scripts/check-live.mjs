@@ -60,7 +60,9 @@ await check('Unknown path returns 404 page', async () => {
 await check('robots.txt and sitemap', async () => {
   const robots = await get('/robots.txt');
   expect(robots.status === 200, `robots.txt ${robots.status}`);
-  expect((await robots.text()).includes('Sitemap: https://kukirim.com/sitemap-index.xml'), 'robots.txt sitemap line');
+  const robotsText = await robots.text();
+  expect(robotsText.includes('Sitemap: https://kukirim.com/sitemap-index.xml'), 'robots.txt sitemap line');
+  expect(/^Disallow: \/cdn-cgi\//m.test(robotsText), 'robots.txt should disallow /cdn-cgi/');
   const index = await get('/sitemap-index.xml');
   expect(index.status === 200, `sitemap-index.xml ${index.status}`);
   const sitemap = await (await get('/sitemap-0.xml')).text();
@@ -82,6 +84,14 @@ await check('Draft pages are noindex and not in sitemap', async () => {
     expect(!sitemap.includes(`https://kukirim.com${path}<`), `${path} listed in sitemap`);
   }
   return draftPages.join(', ');
+});
+
+// Cloudflare Email Address Obfuscation rewrites mailto links and injects email-decode.min.js (SEO-P1-01).
+await check('No Cloudflare email obfuscation', async () => {
+  const html = await (await get('/kontak/')).text();
+  expect(!html.includes('/cdn-cgi/'), 'page contains /cdn-cgi/ (Email Address Obfuscation is on)');
+  expect(html.includes('mailto:halo@kukirim.com'), 'literal mailto:halo@kukirim.com missing');
+  return 'clean HTML';
 });
 
 await check('Hashed assets are cached immutably', async () => {
