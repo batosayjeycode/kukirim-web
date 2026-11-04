@@ -1,0 +1,109 @@
+---
+/**
+ * Share block: native share (when supported), WhatsApp, Telegram, Facebook, X and copy link.
+ * Platform links are built at build time, so they work without JavaScript; the native and
+ * copy buttons appear once src/scripts/share.ts runs. Always shares the canonical https URL
+ * of `path` (never a preview or pages.dev host).
+ */
+import { site } from '../data/site';
+import { SHARE_PLATFORMS, buildShareLinks } from '../lib/share';
+
+interface Props {
+  /** Canonical path of the shared page, e.g. "/panduan/cara-menentukan-harga-jual/". */
+  path: string;
+  title: string;
+  /** Message shown before the link. Keep it short and natural. */
+  text: string;
+  heading?: string;
+  /** Analytics context (no user input). */
+  pageType: 'article' | 'page';
+}
+
+const { path, title, text, heading = 'Bagikan', pageType } = Astro.props;
+const url = new URL(path, site.url).href;
+const links = buildShareLinks({ text, url });
+if (!links) throw new Error(`Share: invalid URL ${url}`);
+---
+
+<div
+  class="share"
+  role="group"
+  aria-labelledby="share-heading"
+  data-share
+  data-title={title}
+  data-text={text}
+  data-url={url}
+  data-page-type={pageType}
+  data-content-type="page"
+>
+  <h2 id="share-heading" class="share-heading">{heading}</h2>
+  <div class="share-actions">
+    <button type="button" class="button button-secondary" data-share-native hidden>Bagikan…</button>
+    {
+      SHARE_PLATFORMS.map((p) => (
+        <a
+          class="button button-secondary"
+          href={links[p.id]}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-share-to={p.id}
+          aria-label={`Bagikan ke ${p.label} (membuka tab baru)`}
+        >
+          {p.label}
+        </a>
+      ))
+    }
+    <button type="button" class="button button-secondary" data-share-copy hidden>Salin tautan</button>
+  </div>
+  <p class="share-status" role="status" aria-live="polite" data-share-status></p>
+</div>
+
+<script>
+  import '../scripts/share';
+</script>
+
+<style>
+  .share {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .share-heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.0625rem;
+  }
+
+  .share-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .share-actions .button {
+    min-height: 2.5rem;
+    padding: 0.375rem 0.875rem;
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .share-actions .button:hover {
+    background: var(--color-accent-soft);
+  }
+
+  .share-actions [hidden] {
+    display: none;
+  }
+
+  .share-status {
+    margin: 0.5rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.9375rem;
+  }
+
+  .share-status:empty {
+    display: none;
+  }
+</style>

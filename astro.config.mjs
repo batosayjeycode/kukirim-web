@@ -13,6 +13,8 @@ export default defineConfig({
   // Inline the small stylesheet so it is not a render-blocking request
   // (allowed by style-src 'unsafe-inline' in public/_headers).
   build: { inlineStylesheets: 'always' },
+  // Never inline client scripts: the CSP (public/_headers) allows only same-origin script files.
+  vite: { build: { assetsInlineLimit: (file) => (file.endsWith('.js') ? false : undefined) } },
   integrations: [
     sitemap({
       // Draft pages (noindex) and the 404 page stay out of the sitemap.

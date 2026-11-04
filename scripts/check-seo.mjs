@@ -48,6 +48,7 @@ const descriptions = new Map();
 const distFiles = files(DIST);
 const sitemap = existsSync(join(DIST, 'sitemap-0.xml')) ? readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8') : '';
 const indexableRoutes = new Set();
+const scriptSrcs = new Set();
 
 for (const file of distFiles.filter((f) => f.endsWith('.html'))) {
   const route = routeOf(file);
@@ -104,6 +105,12 @@ for (const file of distFiles.filter((f) => f.endsWith('.html'))) {
     const ogImage = one(html, /<meta property="og:image" content="([^"]*)"/);
     if (ogImage && (!ogImage.startsWith(`${SITE}/`) || !resolves(ogImage.slice(SITE.length)))) err(`og:image not found: ${ogImage}`);
     if (one(html, /<meta property="og:url" content="([^"]*)"/) !== canonical) err('og:url ≠ canonical');
+    // X/Twitter cards: explicit tags that match Open Graph (social previews must agree with the page).
+    for (const [tw, og] of [['twitter:title', 'og:title'], ['twitter:description', 'og:description'], ['twitter:image', 'og:image']]) {
+      const value = one(html, new RegExp(`<meta name="${tw}" content="([^"]*)"`));
+      if (!value) err(`missing ${tw}`);
+      else if (value !== one(html, new RegExp(`<meta property="${og}" content="([^"]*)"`))) err(`${tw} ≠ ${og}`);
+    }
   }
 
   // Placeholders (src/components/Placeholder.astro) may only appear on noindex drafts.
@@ -121,9 +128,15 @@ for (const file of distFiles.filter((f) => f.endsWith('.html'))) {
     }
   }
 
-  // The site ships no client JavaScript; JSON-LD is the only allowed <script>.
+  // Client JavaScript is limited to bundled same-origin modules (the share buttons); inline
+  // scripts would be blocked by the CSP, and nothing may load from another host.
   const scripts = all(html, /<script([^>]*)>/g).filter((attrs) => !attrs.includes('application/ld+json'));
-  if (scripts.length) err(`ships ${scripts.length} client <script> tag(s)`);
+  for (const attrs of scripts) {
+    const src = attrs.match(/\ssrc="([^"]*)"/)?.[1];
+    if (src) scriptSrcs.add(src.slice(1));
+    if (!src) err('inline client <script> (blocked by the CSP)');
+    else if (!/^\/_astro\/[\w.-]+\.js$/.test(src) || !resolves(src)) err(`client script must be a bundled same-origin file: ${src}`);
+  }
 
   // Astro can drop the line break between text and a following link ("gunakan<a…>").
   for (const glued of all(html, /([A-Za-z0-9,.:;]<a [^>]*>[^<]{0,20})/g)) warn(`missing space before link: ${glued}`);
@@ -154,8 +167,10 @@ for (const loc of all(sitemap, /<loc>([^<]+)<\/loc>/g)) {
 for (const required of REQUIRED_FILES) {
   if (!existsSync(join(DIST, required))) errors.push(`dist: missing ${required}`);
 }
+// Only bundled scripts that a page actually loads (no stray or hand-placed JS).
 const js = distFiles.filter((f) => f.endsWith('.js')).map((f) => relative(DIST, f));
-if (js.length) errors.push(`dist: ships JS files ${js.join(', ')}`);
+const strayJs = js.filter((f) => !f.startsWith('_astro/') || !scriptSrcs.has(f));
+if (strayJs.length) errors.push(`dist: ships unreferenced JS files ${strayJs.join(', ')}`);
 
 const pages = titles.size;
 for (const w of warnings) console.warn(`warn  ${w}`);

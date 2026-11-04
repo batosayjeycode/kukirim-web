@@ -14,12 +14,14 @@ Static brand homepage and product catalog for Kukirim, built with Astro and depl
 | `npm run check:launch` | Launch gate: fails while `draftPages` is non-empty or a page uses `<Placeholder>` |
 | `npm run preview` | Serve the built site |
 | `npm run images` | Regenerate OG image, logo PNG and apple-touch icon in `public/` |
+| `npm run images:guides` | Regenerate guide social previews in `public/og/panduan/` (run after adding a guide or changing a title) |
 | `npm run check:live -- <url>` | Read-only post-deploy checks (defaults to `https://kukirim.com`) |
 
 `check:seo` (part of `verify`; errors fail CI) checks every built page for: `lang="id"`, a unique title (≤65 chars,
 warning) and description (70–160 chars, warning), one `<h1>` and no skipped heading levels, `<img>` alt text, valid
-JSON-LD, no client `<script>`. Indexable pages need a canonical equal to their URL, a sitemap entry, `og:title`,
-`og:description`, `og:url` (= canonical), `og:image` (file must exist) and `og:image:alt`. Only `/404` and
+JSON-LD, no inline `<script>` (client scripts must be bundled `/_astro/*.js` files a page loads). Indexable pages need a
+canonical equal to their URL, a sitemap entry, `og:title`, `og:description`, `og:url` (= canonical), `og:image` (file
+must exist), `og:image:alt`, and `twitter:title`/`twitter:description`/`twitter:image` equal to their `og:` values. Only `/404` and
 `draftPages` may be `noindex`; they must have no canonical and no sitemap entry. Internal links must be absolute, end
 in `/` (or a file extension) and resolve; `#` anchors must exist. Placeholders are errors on indexable pages, and a
 missing space before a link is a warning.
@@ -35,6 +37,25 @@ missing space before a link is a warning.
 - `src/content/panduan/`: guides. Copy `_TEMPLATE.md` to add one; the Panduan nav item, homepage section, `/panduan/` index and sitemap entries appear automatically once a non-draft guide exists. After adding the very first guide, restart `npm run dev` (the empty-folder check runs once at startup). Set `updatedAt` when you revise a guide: the sitemap `lastmod` uses it, falling back to `publishedAt`.
 - `public/_headers`: security headers, asset caching, noindex for `*.pages.dev` (a backup: `kukirim-web.pages.dev`
   redirects to kukirim.com, so it only applies to per-deployment `<hash>.kukirim-web.pages.dev` URLs).
+
+## Social sharing
+
+Every guide ends with **Bagikan panduan ini** (`src/components/Share.astro`): **Bagikan…** (native Web Share API, shown
+only when supported), WhatsApp, Telegram, Facebook, X and **Salin tautan**. Platform links are official intent URLs
+built at build time and work without JavaScript; `src/scripts/share.ts` (one ~2 KB same-origin module, only on guide
+pages) adds the native and copy buttons. Link logic is in `src/lib/share.ts` (mirrors kukirim-tools; no shared code).
+
+```astro
+<Share path="/panduan/slug/" title="Judul" text="Pesan singkat." heading="Bagikan panduan ini" pageType="article" />
+```
+
+- Shares the canonical `https://kukirim.com/...` URL (from `site.url`, never `location`); query strings are stripped.
+- Guide social previews: `public/og/panduan/<slug>.png` from `npm run images:guides`. A guide without one falls back
+  to `/og-default.png`. Article JSON-LD `image` uses the same file.
+- `astro.config.mjs` stops Vite from inlining small scripts, because the CSP only allows same-origin script files.
+- Analytics: none installed (see `/privasi/`); nothing is sent. Actions dispatch a local `window` event `kukirim:share`
+  with `{ name, props }` (`share_click`, `share_success`, `share_copy_link`, `share_whatsapp`, `share_telegram`,
+  `share_facebook`, `share_x`; props `page_type`, `page_path`, `share_method`, `content_type`).
 
 ## Trust pages and drafts
 
