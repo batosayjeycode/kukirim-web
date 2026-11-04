@@ -1,7 +1,10 @@
 ---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import Share from '../../components/Share.astro';
 import { site } from '../../data/site';
 import { products } from '../../data/products';
 import { getPublishedGuides, formatDate } from '../../lib/guides';
@@ -37,6 +40,13 @@ const hubCrumbs: Crumb[] = [
 ];
 const crumbs: Crumb[] = guide ? [...hubCrumbs, { name: guide.data.title, path: `/panduan/${guide.id}/` }] : hubCrumbs;
 
+// Guide-specific social preview from `npm run images:guides`; falls back to the brand image.
+const guideImagePath = guide ? `/og/panduan/${guide.id}.png` : undefined;
+const image =
+  guide && guideImagePath && existsSync(join(process.cwd(), 'public', guideImagePath))
+    ? { src: guideImagePath, alt: `Panduan Kukirim: ${guide.data.title}` }
+    : undefined;
+
 const publishedTime = guide ? isoDate(guide.data.publishedAt) : undefined;
 const modifiedTime = guide ? isoDate(guide.data.updatedAt ?? guide.data.publishedAt) : undefined;
 
@@ -50,7 +60,7 @@ const jsonLd = guide
         datePublished: publishedTime,
         dateModified: modifiedTime,
         inLanguage: 'id-ID',
-        image: `${site.url}/og-default.png`,
+        image: `${site.url}${image?.src ?? '/og-default.png'}`,
         mainEntityOfPage: `${site.url}/panduan/${guide.id}/`,
         author: { '@id': organizationId },
         publisher: { '@id': organizationId },
@@ -87,6 +97,7 @@ const jsonLd = guide
       title={guide.data.title}
       description={guide.data.description}
       jsonLd={jsonLd}
+      image={image}
       ogType="article"
       publishedTime={publishedTime}
       modifiedTime={modifiedTime}
@@ -105,6 +116,13 @@ const jsonLd = guide
           )}
         </p>
         <Content />
+        <Share
+          path={`/panduan/${guide.id}/`}
+          title={guide.data.title}
+          text={`Panduan dari Kukirim untuk seller online: ${guide.data.title}.`}
+          heading="Bagikan panduan ini"
+          pageType="article"
+        />
       </article>
     </BaseLayout>
   ) : (
