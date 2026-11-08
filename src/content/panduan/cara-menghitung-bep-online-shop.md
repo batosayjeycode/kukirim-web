@@ -2,6 +2,7 @@
 title: "Cara Menghitung BEP (Titik Impas) Online Shop"
 description: "Cara menghitung BEP online shop: berapa produk yang harus terjual tiap bulan untuk menutup biaya tetap, lengkap dengan contoh, target untung, dan efek diskon."
 publishedAt: 2026-11-08
+updatedAt: 2026-11-08
 ---
 
 Untung per produk belum tentu berarti toko Anda untung. Setiap bulan ada biaya yang tetap keluar walaupun penjualan
@@ -119,12 +120,14 @@ produk bermargin tipis, BEP yang sebenarnya akan lebih tinggi.
 - **Menghitung dari pesanan yang belum dibayar.** Pakai penjualan yang benar-benar selesai, bukan pesanan yang batal atau
   diretur.
 
-## Hitung laba per unit Anda
+## Hitung BEP toko Anda
 
-[Kalkulator Keuntungan](https://tools.kukirim.com/kalkulator-keuntungan/) di Kukirim Tools menghitung laba bersih per
-unit setelah HPP, diskon, biaya marketplace, dan biaya per pesanan. Angka laba bersih itu yang Anda pakai sebagai laba
-per unit di rumus BEP. Kalkulator ini tidak menghitung biaya tetap bulanan, jadi bagi sendiri biaya tetap Anda dengan
-hasilnya. Gratis, tanpa daftar akun, dan dihitung di browser Anda.
+[Kalkulator BEP](https://tools.kukirim.com/kalkulator-bep/) di Kukirim Tools menghitung semua langkah di atas sekaligus:
+laba per unit, BEP dalam unit dan rupiah, target per hari, dan penjualan yang dibutuhkan untuk target laba bulanan.
+Masukkan harga, biaya per unit, dan biaya tetap Anda sendiri. Gratis, tanpa daftar akun, dan dihitung di browser Anda.
+
+Untuk rincian laba per unit, termasuk diskon dan biaya per pesanan yang dibagi ke beberapa unit, pakai
+[Kalkulator Keuntungan](https://tools.kukirim.com/kalkulator-keuntungan/), lalu masukkan hasilnya ke rumus BEP.
 
 Untuk mencatat biaya tetap dan penjualan setiap bulan, pakai
 [Template Pembukuan Online Shop](https://tools.kukirim.com/template-pembukuan-online-shop/) dan ikuti

@@ -31,6 +31,12 @@ export const products: Product[] = [
           'Hitung laba bersih, margin, dan harga impas setelah diskon, biaya marketplace, ongkir, dan kemasan.',
       },
       {
+        name: 'Kalkulator BEP',
+        url: 'https://tools.kukirim.com/kalkulator-bep/',
+        summary:
+          'Hitung berapa unit dan berapa rupiah penjualan per bulan yang dibutuhkan untuk menutup biaya tetap toko.',
+      },
+      {
         name: 'Generator Label Paket',
         url: 'https://tools.kukirim.com/generator-label-paket/',
         summary:
@@ -49,6 +55,6 @@ export const products: Product[] = [
           'Template spreadsheet (.xlsx) untuk mencatat pesanan dari semua channel dan memantau status pembayaran serta pengiriman.',
       },
     ],
-    verifiedAt: '2026-10-29',
+    verifiedAt: '2026-11-08',
   },
 ];
