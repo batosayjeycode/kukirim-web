@@ -2,6 +2,7 @@
 title: "Cara Menghitung HPP Produk Online Shop"
 description: "Cara menghitung HPP per unit untuk reseller, dropshipper, dan produksi sendiri, termasuk ongkir kulakan, barang cacat, dan restock dengan harga berbeda."
 publishedAt: 2026-11-03
+updatedAt: 2026-11-17
 ---
 
 HPP (harga pokok penjualan) adalah titik awal semua hitungan untung. Harga jual, harga impas, margin, dan ruang untuk
@@ -109,6 +110,8 @@ Setelah HPP benar, langkah berikutnya adalah menambahkan biaya marketplace, kema
 [Cara Menentukan Harga Jual Online Shop agar Untung](/panduan/cara-menentukan-harga-jual/), lalu cek hasilnya dengan
 [Kalkulator Keuntungan](https://tools.kukirim.com/kalkulator-keuntungan/) di Kukirim Tools: masukkan HPP, harga jual, dan
 biaya Anda untuk melihat laba bersih, margin, dan harga impas. Gratis, tanpa daftar akun, dan dihitung di browser Anda.
+Cara menghitungnya secara manual ada di
+[Cara Menghitung Keuntungan Jualan Online](/panduan/cara-menghitung-keuntungan-jualan-online/).
 
 Di pembukuan berbasis kas, pembelian stok dicatat sebagai pengeluaran pada tanggal dibayar, bukan per unit yang terjual.
 Keduanya saling melengkapi: HPP untuk menentukan harga dan untung per produk, pembukuan untuk melihat uang yang benar-benar
