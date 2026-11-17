@@ -2,6 +2,7 @@
 title: "Cara Menghitung Keuntungan Jualan Online"
 description: "Cara menghitung laba bersih jualan online per unit, per pesanan, dan per bulan setelah HPP, biaya marketplace, ongkir, kemasan, dan diskon, dengan contoh."
 publishedAt: 2026-11-03
+updatedAt: 2026-11-17
 ---
 
 Omzet besar belum tentu untung besar. Dari setiap penjualan, ada modal produk, potongan marketplace, kemasan, ongkir
@@ -120,7 +121,10 @@ unit dan per pesanan, margin, dan harga impas dari angka Anda sendiri, termasuk 
 pesanan untuk beberapa unit. Gratis, tanpa daftar akun, dan dihitung di browser Anda.
 
 Jika laba ternyata terlalu kecil, baca [Cara Menentukan Harga Jual Online Shop agar Untung](/panduan/cara-menentukan-harga-jual/)
-untuk menghitung ulang harga dari biaya dan target margin.
+untuk menghitung ulang harga dari biaya dan target margin. Dari laba per unit, Anda juga bisa menghitung berapa produk
+yang harus terjual setiap bulan di
+[Cara Menghitung BEP (Titik Impas) Online Shop](/panduan/cara-menghitung-bep-online-shop/), dan batas biaya iklan di
+[Cara Menghitung ROAS Impas agar Iklan Tidak Rugi](/panduan/cara-menghitung-roas-impas-iklan/).
 
 ## Yang belum termasuk
 

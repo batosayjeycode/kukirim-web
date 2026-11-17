@@ -2,7 +2,7 @@
 title: "Cara Menghitung BEP (Titik Impas) Online Shop"
 description: "Cara menghitung BEP online shop: berapa produk yang harus terjual tiap bulan untuk menutup biaya tetap, lengkap dengan contoh, target untung, dan efek diskon."
 publishedAt: 2026-11-08
-updatedAt: 2026-11-08
+updatedAt: 2026-11-17
 ---
 
 Untung per produk belum tentu berarti toko Anda untung. Setiap bulan ada biaya yang tetap keluar walaupun penjualan
@@ -133,4 +133,6 @@ Untuk mencatat biaya tetap dan penjualan setiap bulan, pakai
 [Template Pembukuan Online Shop](https://tools.kukirim.com/template-pembukuan-online-shop/) dan ikuti
 [Cara Membuat Pembukuan Online Shop Sederhana](/panduan/cara-membuat-pembukuan-online-shop/). Jika laba per unit
 ternyata terlalu kecil untuk mencapai BEP, baca
-[Cara Menentukan Harga Jual Online Shop agar Untung](/panduan/cara-menentukan-harga-jual/).
+[Cara Menentukan Harga Jual Online Shop agar Untung](/panduan/cara-menentukan-harga-jual/). Jika Anda beriklan, laba
+per unit yang sama juga menentukan batas biaya iklan; caranya ada di
+[Cara Menghitung ROAS Impas agar Iklan Tidak Rugi](/panduan/cara-menghitung-roas-impas-iklan/).

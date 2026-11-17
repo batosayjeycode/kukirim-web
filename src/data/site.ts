@@ -7,6 +7,10 @@ export const site = {
   homeHeading: 'Tools Online Praktis untuk Kebutuhan Digital Indonesia',
   description:
     'Kukirim Digital menghadirkan tools online praktis untuk kebutuhan digital di Indonesia, dimulai dari tools gratis dan panduan untuk seller online.',
+  // Homepage meta description: names the verified tools sellers search for. `description` stays the broad brand text
+  // used for the Organization schema.
+  homeDescription:
+    'Tools online praktis dari Kukirim Digital, dimulai untuk seller Indonesia: kalkulator keuntungan dan BEP, label paket, template pembukuan, dan panduan gratis.',
   // Verified: published on https://tools.kukirim.com (checked 2026-10-29).
   email: 'halo@kukirim.com',
   // Brand name shown in the footer. Not a statement of the legal operator, which is unresolved.

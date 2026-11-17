@@ -2,7 +2,7 @@
 title: "Cara Menentukan Harga Jual Online Shop agar Untung"
 description: "Langkah menentukan harga jual produk online shop dari HPP, biaya marketplace, harga impas, sampai target margin, lengkap dengan contoh perhitungan."
 publishedAt: 2026-10-29
-updatedAt: 2026-11-03
+updatedAt: 2026-11-17
 ---
 
 Banyak seller menentukan harga dengan menambahkan persentase ke modal, misalnya "modal ditambah 50%". Cara ini cepat,
@@ -121,5 +121,9 @@ Untuk mencatat biaya dan laba yang benar-benar terjadi setiap bulan, gunakan
 ## Yang belum termasuk
 
 Perhitungan di atas belum memasukkan pajak, biaya iklan, biaya penarikan dana, retur, dan biaya operasional bulanan
-seperti gaji atau sewa. Jika biaya tersebut besar, sisihkan sebagian margin untuk menutupnya. Panduan ini bersifat
+seperti gaji atau sewa. Jika biaya tersebut besar, sisihkan sebagian margin untuk menutupnya. Untuk melihat berapa
+produk yang harus terjual agar biaya bulanan tertutup, baca
+[Cara Menghitung BEP (Titik Impas) Online Shop](/panduan/cara-menghitung-bep-online-shop/). Jika Anda beriklan, cek
+batas biaya iklan per penjualan di
+[Cara Menghitung ROAS Impas agar Iklan Tidak Rugi](/panduan/cara-menghitung-roas-impas-iklan/). Panduan ini bersifat
 umum dan bukan nasihat keuangan atau pajak.

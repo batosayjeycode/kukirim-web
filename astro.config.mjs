@@ -4,7 +4,11 @@ import sitemap from '@astrojs/sitemap';
 import { site, draftPages, pageLastmods } from './src/data/site.ts';
 import { guideLastmods } from './src/lib/guide-files.ts';
 
-const lastmods = new Map([...Object.entries(pageLastmods), ...guideLastmods()]);
+const guideDates = guideLastmods();
+const lastmods = new Map([...Object.entries(pageLastmods), ...guideDates]);
+// The homepage lists the guides, so it changes whenever a guide does: use the newer of its own date and the newest guide.
+const newestGuide = guideDates.get('/panduan/');
+if (newestGuide && newestGuide > (lastmods.get('/') ?? '')) lastmods.set('/', newestGuide);
 
 export default defineConfig({
   site: site.url,
